@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.uesc.cestaBasica.api.ApiException;
+
 import org.uesc.cestaBasica.api.CestaData;
 import org.uesc.cestaBasica.entities.Cesta;
 import org.uesc.cestaBasica.services.CestaService;
@@ -28,7 +28,7 @@ public class CestaController extends BaseController {
     }
 
     @PostMapping
-    public Cesta createCesta(@RequestBody CestaData cestaData) {
+    public Cesta createCesta(@Valid @RequestBody CestaData cestaData) {
         return cestaService.create(cestaData);
     }
 }
