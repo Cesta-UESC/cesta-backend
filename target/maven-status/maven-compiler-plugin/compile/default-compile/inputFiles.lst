@@ -1,0 +1,5 @@
+/home/joao/cesta-backend/src/main/java/org/uesc/cestaBasica/CestaBasicaApplication.java
+/home/joao/cesta-backend/src/main/java/org/uesc/controller/CestaController.java
+/home/joao/cesta-backend/src/main/java/org/uesc/entity/Cesta.java
+/home/joao/cesta-backend/src/main/java/org/uesc/repository/CestaRepository.java
+/home/joao/cesta-backend/src/main/java/org/uesc/service/CestaService.java

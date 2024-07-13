@@ -1,0 +1,10 @@
+services:
+  db:
+    image: mysql/mysql-server:latest
+    environment:
+      - MYSQL_DATABASE=cesta
+      - MYSQL_USER=cesta
+      - MYSQL_PASSWORD=senhasegura123
+      - MYSQL_ROOT_PASSWORD=senhasegura123
+    ports:
+      - '3306:3306'
