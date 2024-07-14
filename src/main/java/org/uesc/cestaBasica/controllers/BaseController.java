@@ -12,6 +12,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.uesc.cestaBasica.api.ApiException;
+import org.uesc.cestaBasica.api.errors.ApiExceptionModel;
+import org.uesc.cestaBasica.api.errors.InternalServerErrorModel;
 
 public class BaseController {
 	Logger logger = LoggerFactory.getLogger(getClass());
@@ -30,18 +32,13 @@ public class BaseController {
     
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
     @ExceptionHandler(ApiException.class)
-    public Map<String, String> handleApiExceptions(ApiException ex) {
-        var errors = new HashMap<String, String>();
-        errors.put("code", ex.getCode());
-        errors.put("details", ex.getMessage());
-        return errors;
+    public ApiExceptionModel handleApiExceptions(ApiException ex) {
+        return new ApiExceptionModel(ex.getCode(), ex.getMessage());
     }
     
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
-    public Map<String, String> handleInternalExceptions(Exception ex) {
-        var errors = new HashMap<String, String>();
-        	
+    public InternalServerErrorModel handleInternalExceptions(Exception ex) {
         var possible_values = "ABCDEFGHJKLMNPQRSTUVWXYZ0123456789";
         var qtd = 6;
         
@@ -51,8 +48,7 @@ public class BaseController {
 			code.append(possible_values.charAt(new Random().nextInt(0, possible_values.length())));
 		}
         
-        errors.put("details", "Erro inesperado, contate o suporte e informe o código " + code + ".");
         logger.error("[" + code + "]", ex);
-        return errors;
+        return new InternalServerErrorModel("Erro inesperado, contate o suporte e informe o código " + code + ".");
     }
 }
