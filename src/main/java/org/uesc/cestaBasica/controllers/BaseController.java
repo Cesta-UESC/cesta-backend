@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.uesc.cestaBasica.api.ApiException;
 
 public class BaseController {
-	Logger logger = LoggerFactory.getLogger(BaseController.class);
+	Logger logger = LoggerFactory.getLogger(getClass());
 	
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -51,8 +51,8 @@ public class BaseController {
 			code.append(possible_values.charAt(new Random().nextInt(0, possible_values.length())));
 		}
         
-        errors.put("details", "Erro inexperado, contate o suporte e informe o código " + code + ".");
-        logger.error("[" + "" + code + "]", ex);
+        errors.put("details", "Erro inesperado, contate o suporte e informe o código " + code + ".");
+        logger.error("[" + code + "]", ex);
         return errors;
     }
 }

@@ -9,7 +9,7 @@ import org.uesc.cestaBasica.repositories.UserRepository;
 
 @Service
 public class UserService {
-    
+
     @Autowired
     private UserRepository userRepository;
 
