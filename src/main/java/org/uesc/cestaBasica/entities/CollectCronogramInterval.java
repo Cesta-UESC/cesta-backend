@@ -3,12 +3,22 @@ package org.uesc.cestaBasica.entities;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
 @Entity
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "tabela_auxiliar_cronograma")
 public class CollectCronogramInterval {
     @Id
@@ -17,13 +27,13 @@ public class CollectCronogramInterval {
     // TODO: add this column
     private Integer id;
 
-    // TODO: ADD CRONOGRAMA RELATIONSHIP
-    @Column(name = "cronograma_id", columnDefinition = "UNSIGNED INT(11)", nullable = false)
-    private Long cronogramId;
+    @ManyToOne
+    @JoinColumn(name = "cronograma_id", nullable = false)
+    private CollectCronogram collectCronogram;
 
-    // TODO: ADD MONTH RELATIONSHIP
-    @Column(name = "mes_id", nullable = false)
-    private Integer monthId;
+    @ManyToOne
+    @JoinColumn(name = "mes_id", nullable = false)
+    private Month month;
 
     @Column(name = "inicio_coleta", nullable = false)
     private Date startDate;

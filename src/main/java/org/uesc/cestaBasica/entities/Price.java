@@ -1,12 +1,15 @@
 package org.uesc.cestaBasica.entities;
 
 import java.math.BigDecimal;
+import java.util.Set;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,7 +23,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Table(name = "tabela_precos")
 public class Price {
-    
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "precos_id")
@@ -44,4 +46,6 @@ public class Price {
     @Column(name = "precos_total", nullable = true, precision = 16, scale = 2)
     private BigDecimal totalPrice;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "price")
+    private Set<AuxiliaryPrice> auxiliaryPrices;
 }
