@@ -1,7 +1,0 @@
-/home/joao/cesta-backend/src/main/java/org/uesc/cestaBasica/CestaBasicaApplication.java
-/home/joao/cesta-backend/src/main/java/org/uesc/cestaBasica/api/CestaData.java
-/home/joao/cesta-backend/src/main/java/org/uesc/cestaBasica/controllers/BaseController.java
-/home/joao/cesta-backend/src/main/java/org/uesc/cestaBasica/controllers/CestaController.java
-/home/joao/cesta-backend/src/main/java/org/uesc/cestaBasica/entities/Cesta.java
-/home/joao/cesta-backend/src/main/java/org/uesc/cestaBasica/repositories/CestaRepository.java
-/home/joao/cesta-backend/src/main/java/org/uesc/cestaBasica/services/CestaService.java
