@@ -1,9 +1,10 @@
 package main
 
 import (
-    "log"
+	"log"
 
-    "github.com/gofiber/fiber/v3"
+	"github.com/Cesta-UESC/cesta-backend/plataform/database"
+	"github.com/gofiber/fiber/v3"
 )
 
 func main() {
@@ -11,9 +12,20 @@ func main() {
     app := fiber.New()
 
     // Define a route for the GET method on the root path '/'
-    app.Get("/", func(c fiber.Ctx) error {
+    app.Get("/jombas", func(c fiber.Ctx) error {
+        db, err := database.MysqlConnection()
+        if err != nil {
+            // Return status 500 and database connection error.
+            return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+                "error": true,
+                "msg":   err.Error(),
+            })
+	}
+
+        log.Print(db.Stats())
+
         // Send a string response to the client
-        return c.SendString("Hello, World!")
+        return c.SendString("Hello, World jombas!")
     })
 
     // Start the server on port 3000

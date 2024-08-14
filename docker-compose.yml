@@ -5,6 +5,8 @@ services:
       - .env
     ports:
       - 3000:3000
+    volumes:
+      - .:/build
     depends_on:
       db:
         condition: service_healthy
