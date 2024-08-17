@@ -1,11 +1,11 @@
-package database
+package model
 
 import (
 	"os"
 	"strconv"
 	"time"
 
-	"github.com/Cesta-UESC/cesta-backend/pkg/utils"
+	"github.com/Cesta-UESC/cesta-backend/utils"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )

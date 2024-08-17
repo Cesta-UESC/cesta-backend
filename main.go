@@ -1,32 +1,36 @@
 package main
 
 import (
-	"fmt"
 	"log"
 
-	"github.com/Cesta-UESC/cesta-backend/app/models"
-	"github.com/Cesta-UESC/cesta-backend/plataform/database"
+	"github.com/Cesta-UESC/cesta-backend/model"
+	"github.com/Cesta-UESC/cesta-backend/repository"
 	"github.com/gofiber/fiber/v3"
 )
 
 func main() {
 	app := fiber.New()
 
-	db, err := database.DbConnection()
+	db, err := model.DbConnection()
 	if err != nil {
 		panic("Failed to connect to database")
 	}
 
-	db.AutoMigrate(&models.User{})
+	repository.SetDefault(db)
+
+	// db.AutoMigrate(&models.User{})
 
 	api := app.Group("/api") // /api
 
 	users := api.Group("/users")
 
 	users.Get("/", func(c fiber.Ctx) error {
-		var user models.User
-		db.First(&user)
-		return c.SendString(fmt.Sprintf("id %d name %s email %s", user.ID, user.Name, user.Email))
+		user, err := repository.Q.Usuarios.Where(repository.Usuarios.UsuarioNome.Like("%a%")).Order(repository.Usuarios.UsuarioNome).Limit(10).Find()
+		if err != nil {
+			return c.SendStatus(400)
+		}
+		// return c.SendString(fmt.Sprintf("id %d name %s email %s", user.UsuarioID, user.UsuarioNome, user.UsuarioEmail))
+		return c.JSON(user)
 	})
 
 	// Start the server on port 3000
