@@ -30,7 +30,9 @@ func main() {
 			return c.SendStatus(400)
 		}
 		// return c.SendString(fmt.Sprintf("id %d name %s email %s", user.UsuarioID, user.UsuarioNome, user.UsuarioEmail))
-		return c.JSON(user)
+		return c.JSON(fiber.Map{
+			"usuarios": user,
+		})
 	})
 
 	// Start the server on port 3000
