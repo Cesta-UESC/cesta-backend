@@ -1,33 +1,34 @@
 package main
 
 import (
+	"fmt"
 	"log"
 
+	"github.com/Cesta-UESC/cesta-backend/app/models"
 	"github.com/Cesta-UESC/cesta-backend/plataform/database"
 	"github.com/gofiber/fiber/v3"
 )
 
 func main() {
-    // Initialize a new Fiber app
-    app := fiber.New()
+	app := fiber.New()
 
-    // Define a route for the GET method on the root path '/'
-    app.Get("/jombas", func(c fiber.Ctx) error {
-        db, err := database.MysqlConnection()
-        if err != nil {
-            // Return status 500 and database connection error.
-            return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-                "error": true,
-                "msg":   err.Error(),
-            })
+	db, err := database.DbConnection()
+	if err != nil {
+		panic("Failed to connect to database")
 	}
 
-        log.Print(db.Stats())
+	db.AutoMigrate(&models.User{})
 
-        // Send a string response to the client
-        return c.SendString("Hello, World jombas!")
-    })
+	api := app.Group("/api") // /api
 
-    // Start the server on port 3000
-    log.Fatal(app.Listen(":3000"))
+	users := api.Group("/users")
+
+	users.Get("/", func(c fiber.Ctx) error {
+		var user models.User
+		db.First(&user)
+		return c.SendString(fmt.Sprintf("id %d name %s email %s", user.ID, user.Name, user.Email))
+	})
+
+	// Start the server on port 3000
+	log.Fatal(app.Listen(":3000"))
 }
