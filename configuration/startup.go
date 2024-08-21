@@ -4,6 +4,6 @@ var (
 	Auth = new(AuthConfiguration)
 )
 
-func SetDefault() {
+func Configure() {
 	SetAuthDefault(Auth)
 }

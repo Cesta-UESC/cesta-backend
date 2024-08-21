@@ -22,6 +22,7 @@ func Authorize() fiber.Handler {
 
 		t, err := service.Validate(token)
 
+		println("aaa", t.Valid)
 		if err != nil || !t.Valid {
 			return c.Status(fiber.StatusUnauthorized).JSON(fiber.ErrUnauthorized)
 		}

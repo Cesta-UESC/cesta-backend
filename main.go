@@ -4,6 +4,7 @@ import (
 	"log"
 	"time"
 
+	"github.com/Cesta-UESC/cesta-backend/configuration"
 	"github.com/Cesta-UESC/cesta-backend/controllers"
 	"github.com/Cesta-UESC/cesta-backend/middlewares"
 	"github.com/Cesta-UESC/cesta-backend/models"
@@ -34,6 +35,7 @@ func main() {
 		panic("Failed to connect to database")
 	}
 
+	configuration.Configure()
 	repositories.Configure(db)
 
 	// db.AutoMigrate(&models.User{})

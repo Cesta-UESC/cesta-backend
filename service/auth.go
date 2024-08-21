@@ -53,6 +53,7 @@ func Validate(token string) (*jwt.Token, error) {
 		t.Valid = false
 		return t, expirationOk
 	}
+	t.Valid = true
 	return t, err
 }
 
